@@ -37,7 +37,7 @@ public class Demoframe extends JFrame {
      b1.setLayout(null);
      c.add(b1);
      
-      b2 = new JButton("view");
+      b2 = new JButton("VIEW");
      b2.setBounds(75,0,76,20);
      b2.setBackground(Color.white);
      b2.setForeground(Color.black);
