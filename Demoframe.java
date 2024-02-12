@@ -1,16 +1,13 @@
-
-
-
 import java.awt.Color;
 import java.awt.Container;
 import javax.swing.*;
 public class Demoframe extends JFrame {
     
     private static  JButton b1,b2,b3,b4,b,d;
-     
+     private static  JButton a1,a2,a3,a4;
   
     private Container c;
-  
+ 
     
     
     
@@ -18,13 +15,13 @@ public class Demoframe extends JFrame {
     Demoframe()
     {
         initComponents();
-       
+        intitfile();
        
     }
     public void initComponents()
     {
         
-      
+        
        
       c = this.getContentPane();
       c.setLayout(null);
@@ -64,7 +61,43 @@ public class Demoframe extends JFrame {
    
     }
     
-    
+    public void  intitfile(){
+        
+        
+     a1 = new JButton("Desktop");
+     a1.setBounds(0,30,120,20);
+     a1.setBackground(Color.white);
+     a1.setHorizontalTextPosition(JButton.LEFT);
+     a1.setForeground(Color.black);
+     a1.setLayout(null);
+     c.add(a1);
+     
+     
+     a2 = new JButton("Downloads");
+     a2.setBounds(0,60,120,20);
+     a2.setHorizontalTextPosition(JButton.LEFT);
+     a2.setBackground(Color.white);
+     a2.setForeground(Color.black);
+     a2.setLayout(null);
+     c.add(a2);
+     
+     a3 = new JButton("Documents");
+     a3.setBounds(0,90,120,20);
+     a3.setHorizontalTextPosition(JButton.LEFT);
+     a3.setBackground(Color.white);
+     a3.setForeground(Color.black);
+     a3.setLayout(null);
+     c.add(a3);
+     
+     a4 = new JButton("Picture");
+     a4.setBounds(0,120,120,20);
+     a4.setBackground(Color.white);
+     a4.setHorizontalTextPosition(JButton.LEFT);
+     a4.setForeground(Color.black);
+     a4.setLayout(null);
+     c.add(a4);
+    }
+        
         
   
 
@@ -77,7 +110,5 @@ public class Demoframe extends JFrame {
        frame.setBounds(50, 50, 300, 400);
        frame.setTitle("File manager");
        frame.setVisible(true);
-    }
+    }
 }
-
-
