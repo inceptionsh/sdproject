@@ -1,27 +1,9 @@
-
-
-
 package com.mycompany.mainframe;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 public class ExplorerPanel extends JPanel {
 
@@ -69,12 +51,25 @@ public class ExplorerPanel extends JPanel {
             File parentDirectory = currentDirectory.getParentFile();
             if (parentDirectory != null) {
                 currentDirectory = parentDirectory;
-                
+                updateFileList(currentDirectory);
             }
         }
     }
 
-   
+    private void updateFileList(File directory) {
+        listModel.clear();
+
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                listModel.addElement(file);
+            }
+        }
+
+        locationLabel.setText("Current Location: " + directory.getAbsolutePath());
+        currentDirectory = directory;
+    }
+
     private class FileListRenderer extends DefaultListCellRenderer {
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -98,7 +93,6 @@ public class ExplorerPanel extends JPanel {
                     updateFileList(selectedFile);
                 }
             }
-        }
-    }
+        }
+    }
 }
-
