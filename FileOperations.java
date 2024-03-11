@@ -1,4 +1,3 @@
-
 package com.mycompany.mainexplorerapp;
 
 import javax.swing.*;
@@ -48,7 +47,24 @@ public class FileOperations extends ExplorerPanel {
     }
 
   
- 
+    public static void sortFilesAscending() {
+    File[] files = getCurrentDirectory().listFiles();
+
+    if (files != null && files.length > 1) {
+        Arrays.sort(files, Comparator.comparing(File::getName));
+        updateFileList(getCurrentDirectory());
+    }
+}
+
+public static void sortFilesDescending() {
+    File[] files = getCurrentDirectory().listFiles();
+
+    if (files != null && files.length > 1) {
+        Arrays.sort(files, Comparator.comparing(File::getName).reversed());
+        updateFileList(getCurrentDirectory());
+    }
+}
+
     
     
     
@@ -145,6 +161,6 @@ public class FileOperations extends ExplorerPanel {
         }
 
         updateFileList(currentDirectory);
-    }
-     
+    }
+     
 }
