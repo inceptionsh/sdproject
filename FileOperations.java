@@ -48,5 +48,59 @@ public class FileOperations extends ExplorerPanel {
     }
 
   
+ 
+    
+    
+    
+    
+    
   
+
+  
+  
+    public static void deleteFile() {
+       File selectedFile = fileList.getSelectedValue();
+     // File selectedFile = f();
+        
+        if (selectedFile != null) {
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + selectedFile.getName() + "?",
+                    "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                if (selectedFile.isDirectory()) {
+                    deleteDirectory(selectedFile);
+                } else {
+                    if (selectedFile.delete()) {
+                        updateFileList(currentDirectory);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Failed to delete file.");
+                    }
+                }
+            }
+        }
+    }
+
+    // Add the deleteDirectory method as well
+    private static void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    if (!file.delete()) {
+                        JOptionPane.showMessageDialog(null, "Failed to delete file: " + file.getName());
+                    }
+                }
+            }
+        }
+
+        if (!directory.delete()) {
+            JOptionPane.showMessageDialog(null, "Failed to delete directory: " + directory.getName());
+        }
+
+        updateFileList(currentDirectory);
+    }
+     
 }
+
