@@ -54,9 +54,54 @@ public class FileOperations extends ExplorerPanel {
     
     
     
+    public static void copyFile() {
+    //JList<File> fileList = explorerPanel.fileList;
+    File selectedFile = fileList.getSelectedValue();
+    // selectedFile = f();
+    
+    if (selectedFile != null) {
+        clipboardFile = selectedFile;
+        System.out.println("File copied: " + selectedFile.getName());
+    }
+}
   
 
-  
+    public static void pasteFile() {
+        
+        
+        
+        if (clipboardFile != null) {
+            File destinationDirectory = getCurrentDirectory();
+            Path sourcePath = clipboardFile.toPath();
+            Path destinationPath = new File(destinationDirectory, clipboardFile.getName()).toPath();
+
+            try {
+                Path copy = Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("File pasted: " + destinationPath.toString());
+                updateFileList(destinationDirectory);
+
+              } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            }
+        }
+        
+        
+        
+    }
+
+    public static void cutFile() {
+        copyFile(); // Copy the file to the clipboard
+        if (clipboardFile != null) {
+            File selectedFile = fileList.getSelectedValue();
+            if (selectedFile != null) {
+                
+                deleteFile(); // Delete the original file
+                
+            }
+        }
+    }
+
   
     public static void deleteFile() {
        File selectedFile = fileList.getSelectedValue();
@@ -103,4 +148,3 @@ public class FileOperations extends ExplorerPanel {
     }
      
 }
-
