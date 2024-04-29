@@ -1,0 +1,30 @@
+package controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import model.DriveChanger;
+
+public class ModeMenuHandler implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        switch (actionCommand) {
+            case "Day":
+                DriveChanger.dayMode();
+                break;
+            case "Night":
+                DriveChanger.nightMode();
+                break;
+            case "C Drive":
+                DriveChanger.changeDrive("C");
+                break;
+            case "D Drive":
+                DriveChanger.changeDrive("D");
+                break;
+            default:
+                System.out.println("Invalid action command: " + actionCommand);
+                break;
+        }
+    }
+}
