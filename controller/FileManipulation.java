@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import javax.swing.JOptionPane;
 import model.ExplorerPanel;
+import model.FileDeletion;
 
 public class FileManipulation {
 
@@ -58,7 +59,7 @@ public class FileManipulation {
     }
 
     public static void cutFile() {
-        switch (clipboardFile == null ? 1 : 0) {
+        switch (clipboardFile != null ? 1 : 0) {
             case 1:
                 File selectedFile = ExplorerPanel.fileList.getSelectedValue();
                 switch (selectedFile == null ? 0 : 1) {

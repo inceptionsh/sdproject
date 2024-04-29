@@ -2,22 +2,22 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import model.DisplayMode;
+import model.DriveChanger;
 
-public class ModeMenuHandler implements ActionListener {
+public class DriveChangeHandler implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         switch (actionCommand) {
-            case "Day":
-                DisplayMode.dayMode();
+            case "C Drive":
+                DriveChanger.changeDrive("C");
                 break;
-            case "Night":
-                DisplayMode.nightMode();
+            case "D Drive":
+                DriveChanger.changeDrive("D");
                 break;
             default:
-                System.out.println("Invalid action command for day/night mode: " + actionCommand);
+                System.out.println("Invalid action command for drive change: " + actionCommand);
                 break;
         }
     }

@@ -1,11 +1,11 @@
 package model;
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -85,19 +85,53 @@ public class ExplorerPanel extends JPanel {
     public void refreshFileList() {
         updateFileList(currentDirectory);
     }
+
+    Object getFileList() {
+       return fileList;
+    }
+    
+   // private JLabel locationLabel;
+
+    // Other class members and methods...
+
+//    public JList<File> getFileList() {
+//        return fileList;
+//    }
+
+    public JLabel getLocationLabel() {
+        return locationLabel;
+    }
    
 
 
 
-    private class FileListMouseListener extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                File selectedFile = fileList.getSelectedValue();
-                if (selectedFile != null && selectedFile.isDirectory()) {
+private class FileListMouseListener extends MouseAdapter {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getClickCount() == 2) {
+            File selectedFile = fileList.getSelectedValue();
+            if (selectedFile != null) {
+                if (selectedFile.isDirectory()) {
                     updateFileList(selectedFile);
+                } else {
+                    // Open the file
+                    openFile(selectedFile);
                 }
             }
         }
     }
+
+    private void openFile(File file) {
+        // Implement file opening logic here
+        // For example, you can open it with the default system application:
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // Handle file opening error
+        }
+    }
+}
+
+
 }
