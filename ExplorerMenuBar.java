@@ -1,8 +1,13 @@
-package com.mycompany.mainexplorerapp;
+package view;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import controller.EditMenuHandler;
+import controller.ModeMenuHandler;
+import controller.ViewMenuHandler;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import model.ExplorerPanel;
+
 
 public class ExplorerMenuBar extends JMenuBar {
 
@@ -10,165 +15,91 @@ public class ExplorerMenuBar extends JMenuBar {
 
     public ExplorerMenuBar(ExplorerPanel explorerPanel) {
         this.explorerPanel = explorerPanel;
-       
 
         JMenu fileMenu = new JMenu("File");
-        JMenu sort = new JMenu("sort");
-        JMenu view = new JMenu("view");
-        JMenu Mode = new JMenu("Mode");
-        JMenu Drive = new JMenu("Drive");
-        JMenu Edit = new JMenu("edit");
+        JMenu sortMenu = new JMenu("Sort");
+        JMenu view = new JMenu("View");
+        JMenu edit = new JMenu("Edit");
+        
+        JMenu mode = new JMenu("Mode");
+        JMenu drive = new JMenu("Drive");
+        //JMenu sortMenu = new JMenu("Sort");
 
         JMenuItem createFileItem = new JMenuItem("Create File");
-        createFileItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileOperations.createFile();
-            }
-        });
+        createFileItem.addActionListener(new FileMenuHandler());
         JMenuItem createFolderItem = new JMenuItem("Create Folder");
-         createFolderItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileOperations.createFolder();
-            }
-        });
-          JMenuItem Delete= new JMenuItem("Delete");
-          Delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              FileOperations.deleteFile();
-            }
-        });
+        createFolderItem.addActionListener(new FileMenuHandler());
+        JMenuItem deleteItem = new JMenuItem("Delete");
+        deleteItem.addActionListener(new FileMenuHandler());
         JMenuItem exitItem = new JMenuItem("Exit");
-         exitItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-        JMenuItem Ascending = new JMenuItem("Ascending");
-        Ascending.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               FileOperations.sortFilesAscending();
-            }
-        });
+        exitItem.addActionListener(new FileMenuHandler());
 
-        JMenuItem Descending = new JMenuItem("Descending");
-        Descending.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileOperations.sortFilesDescending();
-            }
-        });
-        JMenuItem list= new JMenuItem("list");
-        list.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              //  FileOperations.listview(); 
-            }
-        });
-        JMenuItem grid= new JMenuItem("grid");
-        grid.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               // FileOperations.gridview(); 
-            }
-        });
-        JMenuItem Day= new JMenuItem("Day");
-        Day.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-             
-            }
-        });
-        JMenuItem Night= new JMenuItem("Night");
-        Night.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-             // FileOperations.panelbackground(); 
-            }
-        });
-        exitItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-       
-         JMenuItem CDrive = new JMenuItem("CDrive");
-         CDrive.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-                
-            }
-        });
-         
-         
-          JMenuItem DDrive = new JMenuItem("DDrive");
-         DDrive.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-          //implements edit menu
-           JMenuItem copy = new JMenuItem("copy");
-         copy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FileOperations.copyFile();
-                
-            }
-        });
-         
-           JMenuItem paste = new JMenuItem("paste ");
-         paste.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                 FileOperations.pasteFile();
-                
-            }
-        });
-         
-           JMenuItem cut = new JMenuItem("cut");
-         cut.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               FileOperations.cutFile();
-                
-            }
-        });
-        fileMenu.add(createFileItem);
-        fileMenu.add(createFolderItem);
-        fileMenu.add(Delete);
-        fileMenu.addSeparator();
-        fileMenu.add(exitItem);
-        Edit.add(copy);
-        Edit.add(cut);
-        Edit.add(paste);
-       
-        sort.add(Ascending);
-        sort.add(Descending);
-        view.add(list);
-        view.add(grid);
-        Mode.add(Day);
-        Mode.add(Night);
-        Drive.add(CDrive);
-        Drive.add(DDrive);
+// Assuming you have an instance of ExplorerPanel named explorerPanel
+
+         JMenuItem ascendingItem = new JMenuItem("Ascending");
+         ascendingItem.addActionListener(new SortingMenuHandler(explorerPanel));
+
+         JMenuItem descendingItem = new JMenuItem("Descending");
+         descendingItem.addActionListener(new SortingMenuHandler(explorerPanel));
 
         
+        JMenuItem viewlistItem = new JMenuItem("List");
+        viewlistItem.addActionListener(new ViewMenuHandler());
+        JMenuItem viewgridItem = new JMenuItem("Grid");
+        viewgridItem .addActionListener(new ViewMenuHandler());
+        
+        JMenuItem copyItem = new JMenuItem("Copy");
+        copyItem .addActionListener(new EditMenuHandler());
+        JMenuItem cutItem = new JMenuItem("Cut");
+        cutItem .addActionListener(new EditMenuHandler());
+        JMenuItem pasteItem = new JMenuItem("Paste");
+        pasteItem .addActionListener(new EditMenuHandler());
+        
+        
+        JMenuItem modedayItem = new JMenuItem("Day");
+        modedayItem .addActionListener(new ModeMenuHandler());
+        JMenuItem modenightItem = new JMenuItem("Night");
+        modenightItem .addActionListener(new ModeMenuHandler());
+        
+        JMenuItem cdriveItem = new JMenuItem("C Drive");
+        cdriveItem .addActionListener(new ModeMenuHandler());
+        JMenuItem ddriveItem = new JMenuItem("D Drive");
+        ddriveItem .addActionListener(new ModeMenuHandler());
+        
+        
+
+                
+        
+
+
+        fileMenu.add(createFileItem);
+        fileMenu.add(createFolderItem);
+        fileMenu.add(deleteItem);
+        fileMenu.addSeparator();
+        fileMenu.add(exitItem);
+
+        sortMenu.add(ascendingItem);
+        sortMenu.add(descendingItem);
+        
+        view.add(viewlistItem);
+        view.add(viewgridItem);
+        
+        edit.add(copyItem);
+        edit.add(cutItem);
+        edit.add(pasteItem);
+        
+        mode.add(modedayItem);
+        mode.add(modenightItem);
+        
+        drive.add(cdriveItem);
+        drive.add(ddriveItem);
         
 
         add(fileMenu);
-        add(sort);
+        add(sortMenu);
         add(view);
-        add(Edit);
-        add(Mode);
-        
-        add(Drive);
-        
-    }
+        add(edit);
+        add(mode);
+        add(drive);
+    }
 }
